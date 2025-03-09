@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krishy's Links</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #0077ff;
+      --dark-blue: #003366;
+      --light-blue: #4da6ff;
+      --black: #121212;
+      --card-bg: rgba(0, 0, 0, 0.4);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    body {
+      background-color: var(--black);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+    
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 800px;
+      padding: 30px;
+      backdrop-filter: blur(15px);
+      background: rgba(0, 51, 102, 0.25);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+    
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    
+    .profile-img-container {
+      width: 130px;
+      height: 130px;
+      position: relative;
+      margin-bottom: 15px;
+    }
+    
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--light-blue);
+      padding: 3px;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      overflow: hidden;
+      background-color: var(--black);
+      z-index: 2;
+    }
+    
+    .profile-img img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .avatar-ring {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 2px solid var(--primary-blue);
+      top: 0;
+      left: 0;
+      animation: spin 8s linear infinite;
+      pointer-events: none;
+    }
+    
+    .avatar-ring:before {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #4da6ff;
+      border-radius: 50%;
+      top: -5px;
+      left: calc(50% - 5px);
+      box-shadow: 0 0 10px #4da6ff, 0 0 20px #4da6ff;
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .avatar-status {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #43b581;
+      border-radius: 50%;
+      bottom: 15px;
+      right: 15px;
+      border: 3px solid var(--black);
+      z-index: 3;
+      box-shadow: 0 0 0 2px var(--light-blue);
+    }
+    
+    .profile h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: white;
+      text-shadow: 0 0 10px var(--primary-blue);
+    }
+    
+    .profile-location {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 15px;
+    }
+    
+    .profile-location i {
+      margin-right: 5px;
+      color: var(--light-blue);
+    }
+    
+    .profile-role {
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 15px;
+      border-radius: 30px;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      font-size: 14px;
+      backdrop-filter: blur(5px);
+    }
+    
+    .social-btn i {
+      margin-right: 8px;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+      background-color: var(--primary-blue);
+      box-shadow: 0 5px 15px rgba(0, 119, 255, 0.4);
+    }
+    
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .link-card {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(77, 166, 255, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+    
+    .link-card:hover::before {
+      transform: translateX(100%);
+    }
+    
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background-color: var(--primary-blue);
+      margin-right: 15px;
+      flex-shrink: 0;
+      box-shadow: 0 0 15px rgba(0, 119, 255, 0.5);
+    }
+    
+    .link-icon i {
+      font-size: 20px;
+    }
+    
+    .link-text {
+      flex-grow: 1;
+    }
+    
+    .link-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    
+    .link-subtitle {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .link-arrow {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    
+    .link-card:hover .link-arrow {
+      transform: translateX(5px);
+    }
+    
+    .link-card:hover {
+      transform: translateY(-3px);
+      background-color: rgba(0, 51, 102, 0.4);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-color: var(--primary-blue);
+    }
+    
+    /* Flowers and butterflies animations */
+    .flower, .butterfly {
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .butterfly {
+      width: 20px;
+      height: 20px;
+      opacity: 0.7;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .footer span {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+    
+    .flower {
+      width: 30px;
+      height: 30px;
+      opacity: 0.6;
+    }
+    
+    /* Background blur effect for glassmorphism */
+    .bg-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 51, 102, 0.4), transparent 70%),
+                  radial-gradient(circle at 70% 70%, rgba(0, 119, 255, 0.4), transparent 70%);
+      filter: blur(60px);
+      z-index: -2;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 20px;
+      }
+      
+      .profile-img-container {
+        width: 110px;
+        height: 110px;
+      }
+      
+      .profile-img {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .avatar-ring {
+        width: 110px;
+        height: 110px;
+      }
+      
+      .profile h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars"></div>
+  <div class="bg-blur"></div>
+  
+  <div class="container">
+    <div class="profile">
+      <div class="profile-img-container">
+        <div class="avatar-ring"></div>
+        <div class="profile-img">
+          <!-- Placeholder image - replace with an actual profile image when available -->
+          <img src="https://i.pinimg.com/736x/ac/6b/db/ac6bdbf62debbb8d32d8dd04d9fcf31b.jpg" alt="Profile Image">
+        </div>
+        <div class="avatar-status"></div>
+      </div>
+      <h1>Krishy</h1>
+      <div class="profile-location">
+        <i class="fas fa-tag"></i> 0hh_blue
+      </div>
+      <div class="profile-role">
+        ✨ Just being awesome ✨
+      </div>
+      
+      <div class="social-buttons">
+        <a href="https://discord.com/users/0hh_blue" class="social-btn" target="_blank">
+          <i class="fab fa-discord"></i> Discord
+        </a>
+        <a href="https://t.me/your_telegram_username" class="social-btn" target="_blank">
+          <i class="fab fa-telegram"></i> Telegram
+        </a>
+      </div>
+      
+      <div class="links">
+        <a href="https://discord.com/users/0hh_blue" class="link-card" target="_blank">
+          <div class="link-icon">
+            <i class="fab fa-discord"></i>
+          </div>
+          <div class="link-text">
+            <div class="link-title">Discord</div>
+            <div class="link-subtitle">Join my server</div>
+          </div>
+          <div class="link-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+      
+        <a href="https://instagram.com/0hh_blu" class="link-card" target="_blank">
+          <div class="link-icon">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <div class="link-text">
+            <div class="link-title">Instagram</div>
+            <div class="link-subtitle">Follow my photos</div>
+          </div>
+          <div class="link-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+      
+        <a href="https://www.roblox.com/users/0hh_blue/profile" class="link-card" target="_blank">
+          <div class="link-icon">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <div class="link-text">
+            <div class="link-title">Roblox</div>
+            <div class="link-subtitle">Play with me</div>
+          </div>
+          <div class="link-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+      
+        <a href="https://www.chess.com/member/yuriiisama" class="link-card" target="_blank">
+          <div class="link-icon">
+            <i class="fas fa-chess"></i>
+          </div>
+          <div class="link-text">
+            <div class="link-title">Chess.com</div>
+            <div class="link-subtitle">Challenge me to a game</div>
+          </div>
+          <div class="link-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+      </div>
+      
+    
+    <div class="footer">
+      Made with <span>💙</span>
+    </div>
+  </div>
+  
+  <script>
+    // Create stars
+    const starsContainer = document.getElementById('stars');
+    const starCount = 150;
+    
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.width = Math.random() * 3 + 'px';
+      star.style.height = star.style.width;
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDelay = Math.random() * 10 + 's';
+      starsContainer.appendChild(star);
+      
+      // Add twinkling animation
+      setInterval(() => {
+        star.style.opacity = Math.random();
+      }, Math.random() * 5000 + 2000);
+    }
+    
+    // Create flowers
+    const flowerColors = ['#4da6ff', '#0077ff', '#003366', '#66b3ff'];
+    for (let i = 0; i < 15; i++) {
+      createFlower();
+    }
+    
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.className = 'flower';
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.top = Math.random() * 100 + 'vh';
+      
+      // Create SVG flower
+      const color = flowerColors[Math.floor(Math.random() * flowerColors.length)];
+      flower.innerHTML = `
+        <svg viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="8" fill="${color}" />
+          <ellipse cx="25" cy="10" rx="7" ry="10" fill="${color}" transform="rotate(0 25 25)" />
+          <ellipse cx="25" cy="10" rx="7" ry="10" fill="${color}" transform="rotate(72 25 25)" />
+          <ellipse cx="25" cy="10" rx="7" ry="10" fill="${color}" transform="rotate(144 25 25)" />
+          <ellipse cx="25" cy="10" rx="7" ry="10" fill="${color}" transform="rotate(216 25 25)" />
+          <ellipse cx="25" cy="10" rx="7" ry="10" fill="${color}" transform="rotate(288 25 25)" />
+        </svg>
+      `;
+      
+      document.body.appendChild(flower);
+      
+      // Animate flower floating
+      let posX = parseInt(flower.style.left);
+      let posY = parseInt(flower.style.top);
+      let moveX = (Math.random() - 0.5) * 2;
+      let moveY = (Math.random() - 0.5) * 2;
+      let rotation = 0;
+      
+      setInterval(() => {
+        posX += moveX;
+        posY += moveY;
+        rotation += 0.5;
+        
+        // Change direction randomly
+        if (Math.random() < 0.02) {
+          moveX = (Math.random() - 0.5) * 2;
+          moveY = (Math.random() - 0.5) * 2;
+        }
+        
+        // Keep within screen
+        if (posX < 0 || posX > window.innerWidth) moveX *= -1;
+        if (posY < 0 || posY > window.innerHeight) moveY *= -1;
+        
+        flower.style.left = posX + 'px';
+        flower.style.top = posY + 'px';
+        flower.style.transform = `rotate(${rotation}deg)`;
+      }, 50);
+    }
+    
+    // Create butterflies
+    for (let i = 0; i < 10; i++) {
+      createButterfly();
+    }
+    
+    function createButterfly() {
+      const butterfly = document.createElement('div');
+      butterfly.className = 'butterfly';
+      butterfly.style.left = Math.random() * 100 + 'vw';
+      butterfly.style.top = Math.random() * 100 + 'vh';
+      
+      // Create SVG butterfly
+      const color = flowerColors[Math.floor(Math.random() * flowerColors.length)];
+      butterfly.innerHTML = `
+        <svg viewBox="0 0 50 50">
+          <path d="M25,20 Q35,0 45,15 Q35,25 45,35 Q35,50 25,30 Q15,50 5,35 Q15,25 5,15 Q15,0 25,20 Z" fill="${color}" />
+          <line x1="25" y1="20" x2="25" y2="30" stroke="black" stroke-width="1" />
+        </svg>
+      `;
+      
+      document.body.appendChild(butterfly);
+      
+      // Animate butterfly
+      animateButterfly(butterfly);
+    }
+    
+    function animateButterfly(butterfly) {
+      let posX = parseInt(butterfly.style.left);
+      let posY = parseInt(butterfly.style.top);
+      let targetX = Math.random() * window.innerWidth;
+      let targetY = Math.random() * window.innerHeight;
+      let flap = true;
+      
+      setInterval(() => {
+        // Flapping animation
+        flap = !flap;
+        butterfly.style.transform = flap ? 'scaleX(0.8)' : 'scaleX(1)';
+        
+        // Calculate direction to target
+        let dx = targetX - posX;
+        let dy = targetY - posY;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // If close to target, pick a new random target
+        if (distance < 50) {
+          targetX = Math.random() * window.innerWidth;
+          targetY = Math.random() * window.innerHeight;
+        }
+        
+        // Move towards target
+        posX += dx * 0.02;
+        posY += dy * 0.02;
+        
+        // Add some randomness to movement
+        posX += (Math.random() - 0.5) * 3;
+        posY += (Math.random() - 0.5) * 3;
+        
+        butterfly.style.left = posX + 'px';
+        butterfly.style.top = posY + 'px';
+      }, 100);
+    }
+    
+    // Discord-style avatar ring animation
+    const avatarRing = document.querySelector('.avatar-ring');
+    const avatarImg = document.querySelector('.profile-img');
+    
+    // Add hover effects
+    avatarImg.addEventListener('mouseenter', () => {
+      avatarRing.style.animation = 'spin 3s linear infinite';
+      avatarRing.style.borderWidth = '3px';
+      avatarRing.style.boxShadow = '0 0 20px var(--primary-blue)';
+    });
+    
+    avatarImg.addEventListener('mouseleave', () => {
+      avatarRing.style.animation = 'spin 8s linear infinite';
+      avatarRing.style.borderWidth = '2px';
+      avatarRing.style.boxShadow = 'none';
+    });
+    
+    // Add link card hover animations
+    document.querySelectorAll('.link-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.querySelector('.link-icon').style.transform = 'scale(1.1)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.querySelector('.link-icon').style.transform = 'scale(1)';
+      });
+    });
+  </script>
+</body>
+</html>
